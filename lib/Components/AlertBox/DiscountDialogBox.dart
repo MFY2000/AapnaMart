@@ -90,7 +90,7 @@ class DiscountDialogBox extends StatelessWidget {
               CustomButton(
                 name: "Proceed",
                 onClick: (){
-                  Get.toNamed(RoutesClass.discountsScreen);
+                  // Get.toNamed(RoutesClass.discountsScreen);
                 },
                 color: ThemeColors().soulColor,
               ),

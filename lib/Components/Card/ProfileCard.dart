@@ -14,7 +14,7 @@ class ProfileCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(RoutesClass.membersProfileScreen);
+        // Get.toNamed(RoutesClass.membersProfileScreen);
       },
       child: Container(
         width: Get.width * 0.39,

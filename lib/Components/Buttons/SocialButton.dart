@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:apna_mart/Utils/ThemeColors.dart';
 
-import '../../Screens/Authentication/Login/LoginScreen.dart';
+// import '../../Screens/Authentication/Login/LoginScreen.dart';
 import '../../Utils/Constants.dart';
 
 class SocialButton extends StatelessWidget {

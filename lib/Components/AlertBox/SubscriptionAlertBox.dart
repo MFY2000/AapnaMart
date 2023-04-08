@@ -175,6 +175,6 @@ class SubscriptionAlertBox extends StatelessWidget {
     );
   }
   void nextScreen() async {
-      Get.toNamed(RoutesClass.subscriptionScreen2Payment);
+      // Get.toNamed(RoutesClass.subscriptionScreen2Payment);
   }
 }

@@ -183,6 +183,6 @@ class SubscriptionReminderAlertBox extends StatelessWidget {
     );
   }
   void nextScreen() async {
-    Get.toNamed(RoutesClass.subscriptionScreen);
+    // Get.toNamed(RoutesClass.subscriptionScreen);
   }
 }

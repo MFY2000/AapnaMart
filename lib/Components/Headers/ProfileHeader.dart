@@ -35,6 +35,6 @@ class ProfileHeader extends StatelessWidget {
     );
   }
   void nextScreen() async {
-    Get.toNamed(RoutesClass.profileSettingsScreen);
+    // Get.toNamed(RoutesClass.profileSettingsScreen);
   }
 }
