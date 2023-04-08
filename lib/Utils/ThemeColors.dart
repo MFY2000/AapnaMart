@@ -22,4 +22,12 @@ class ThemeColors {
   final roundedContainerColor = const Color(0xFFD9D9D9);
   final containerColor = const Color(0xFFEAEAEA);
   final careerDetailsColor = const Color(0xFF989BAE);
+
+
+  final primayColor = const Color(0xFF188AEC); 
+  final secondaryColor = const Color(0xFF50555C); 
+  
+  final primayHeading = const Color(0xFF000000); 
+  final highlight = const Color(0xFFFF0000);
+  final highlight2 = const Color(0xFFF9B019);
 }

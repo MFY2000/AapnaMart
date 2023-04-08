@@ -9,7 +9,10 @@ class CustomTheme {
   final successColor = Colors.green;
 
   // Font Sizes
-  final soulMilanFontSize = 40.0;
+  final headingsize = 36.0;
+  final mediumSize = 20.0;
+  final smallSize = 14.0;
+
   final onBoardingHeadingFontSize = 24.0;
   final onBoardingSubHeadingFontSize = 18.0;
   final soulMilanSubscriptionFontSize = 20.0;
@@ -38,6 +41,7 @@ class CustomTheme {
       inputDecorationTheme: inputDecorationTheme(),
     );
   }
+
   InputDecorationTheme inputDecorationTheme() {
     ThemeColors color = ThemeColors();
     return InputDecorationTheme(
@@ -46,13 +50,13 @@ class CustomTheme {
           color: color.enabledBorderColor,
         ),
       ),
-        errorStyle: const TextStyle(height: 0),
-        errorBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: errorColor,
-            width: errorBorderWidth,
-          ),
+      errorStyle: const TextStyle(height: 0),
+      errorBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: errorColor,
+          width: errorBorderWidth,
         ),
+      ),
       focusedBorder: UnderlineInputBorder(
         borderSide: BorderSide(
           width: 2,
@@ -72,21 +76,18 @@ class CustomTheme {
   TextTheme textTheme() {
     ThemeColors color = ThemeColors();
     return TextTheme(
-      displayLarge: TextStyle(color: color.soulColor, fontSize: soulMilanFontSize, fontWeight: FontWeight.bold,),
-      displayMedium: TextStyle(color: color.milanColor, fontSize: soulMilanFontSize, fontWeight: FontWeight.bold,),
-      displaySmall: TextStyle(color: color.onBoardingHeadingColor, fontSize: onBoardingHeadingFontSize, fontWeight: FontWeight.bold,),
-      headlineMedium: TextStyle(color: color.onBoardingHeadingColor, fontSize: onBoardingSubHeadingFontSize, fontWeight: FontWeight.w600),
-      headlineSmall: TextStyle(color: color.onBoardingHeadingColor, fontSize: authHeadingsFontSize,fontWeight: FontWeight.w500),
-      headlineLarge: TextStyle(color: color.buttonColor, fontSize:fontSize, fontWeight: FontWeight.bold),
-      titleMedium: TextStyle(color: color.blackColor, fontSize: onBoardingSubHeadingFontSize,),
-      titleLarge: TextStyle(color: color.buttonColor, fontSize:fontSize,),
-      titleSmall: TextStyle(color: color.onBoardingHeadingColor, fontSize: socialTextSize,),
-      bodyLarge: TextStyle(color: color.deleteFromThisDevice, fontSize: fontSize,),
-      bodyMedium: TextStyle(color: color.buttonColor, fontSize: socialTextSize, fontWeight: FontWeight.w600),
-      bodySmall: TextStyle(color: color.onBoardingHeadingColor, fontSize: fontSize1),
-      labelSmall: TextStyle(color: color.buttonColor, fontSize: fontSize1,),
-      labelMedium: TextStyle(color: color.onBoardingHeadingColor, fontSize: onBoardingSubHeadingFontSize, fontWeight: FontWeight.w600),
-      labelLarge: TextStyle(color: color.deleteFromThisDevice, fontSize: onBoardingSubHeadingFontSize,fontWeight: FontWeight.w300),
+      displayLarge: TextStyle(
+          color: color.primayHeading,
+          fontSize: headingsize,
+          fontWeight: FontWeight.bold),
+      displayMedium: TextStyle(
+          color: color.primayColor,
+          fontSize: mediumSize,
+          fontWeight: FontWeight.w500),
+      displaySmall: TextStyle(
+          color: color.secondaryColor,
+          fontSize: smallSize,
+          fontWeight: FontWeight.normal),
     );
   }
 }
