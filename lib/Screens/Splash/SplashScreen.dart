@@ -13,8 +13,16 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    goTO();
+  }
+
+  void goTO() async {
+    // Api call to get Data, if data is null then go to onborading
+    await Future.delayed(Duration(seconds: 5));
+
+
+    Get.offAndToNamed("/borading");
   }
 
   @override
@@ -25,23 +33,19 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(children: [
           Container(
             alignment: Alignment.center,
-            height: Get.height * 0.9,
+            height: Get.height * 0.92,
             width: Get.width,
             child: Image.asset(
               'assets/images/logo.png',
               fit: BoxFit.contain,
             ),
           ),
-          Container(
-            height: Get.height * 0.1,
-            width: Get.width,
-            child: Column(children: [
-              Text("Powered by",
-                  style: Theme.of(context).textTheme.displaySmall),
-              Text("FA Developers",
-                  style: Theme.of(context).textTheme.displayMedium),
-            ]),
-          )
+          Column(children: [
+            Text("Powered by",
+                style: Theme.of(context).textTheme.headlineMedium),
+            Text("FA Developers",
+                style: Theme.of(context).textTheme.headlineLarge),
+          ])
         ]),
       ),
     );

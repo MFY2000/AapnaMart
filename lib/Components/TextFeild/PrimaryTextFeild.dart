@@ -1,79 +1,76 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
+import 'package:apna_mart/Utils/CustomTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../Utils/CustomTheme.dart';
-import '../../Utils/ThemeColors.dart';
-
-class CustomTextfield4 extends StatelessWidget {
+class PrimaryTextFeild extends StatelessWidget {
   final TextEditingController controller;
   final String label;
+  final int typeOfFeild;
   final TextInputType inputType;
-  final String hint;
 
-  const CustomTextfield4({
+  const PrimaryTextFeild({
     super.key,
     required this.controller,
     required this.label,
-    required this.inputType,
-    required this.hint,
+    this.typeOfFeild = 1,
+    this.inputType = TextInputType.text,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.only(top: Get.height * 0.02),
       child: TextFormField(
-        cursorColor: ThemeColors().labelTextColor,
+        cursorColor: CustomTheme().fontsColor,
         controller: controller,
         keyboardType: inputType,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) {
-          if (value == null || value.isEmpty) {
+          if (typeOfFeild == 2 && value != null && !GetUtils.isEmail(value)) {
+            return 'Please Enter Valid $label';
+          } else if (value == null || value.isEmpty) {
             return 'Please Enter $label';
           }
           return null;
         },
         style: TextStyle(
-          color: ThemeColors().onBoardingHeadingColor,
+          color: CustomTheme().fontsColor,
         ),
         decoration: InputDecoration(
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(
-              color: ThemeColors().enabledBorderColor,
+              color: CustomTheme().fontsColor,
             ),
           ),
           errorStyle: TextStyle(
-              height: -1,
-              color: CustomTheme().errorColor,
-            ),
+            height: 0,
+            color: CustomTheme().highlight,
+          ),
           errorBorder: UnderlineInputBorder(
             borderSide: BorderSide(
-              color: CustomTheme().errorColor,
+              color: CustomTheme().highlight,
               width: CustomTheme().errorBorderWidth,
             ),
           ),
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(
               width: 2,
-              color: ThemeColors().labelTextColor,
+              color: CustomTheme().fontsColor,
             ),
           ),
-          contentPadding: EdgeInsets.all(CustomTheme().paddingInput),
-          suffixIconConstraints: BoxConstraints(minWidth: 24, minHeight: 24,),
-          suffixIcon: IconButton(
-            onPressed: controller.clear,
-            icon: const Icon(Icons.clear_rounded),
-            iconSize: 20,
-            color: ThemeColors().iconColor,
+          contentPadding: EdgeInsets.all(0),
+
+          labelStyle: TextStyle(
+            color: CustomTheme().fontsColor,
           ),
-          /*labelStyle: TextStyle(
-            color: ThemeColors().labelTextColor,
-          ),*/
           hintStyle: TextStyle(
-            color: ThemeColors().buttonColor,
-            fontSize: 18,
+            color: CustomTheme().primaryBTN,
+            fontSize: 13,
           ),
-          /*labelText: label,*/
-          hintText: hint,
+          labelText: label,
+          // hintText: "Enter $label",
         ),
       ),
     );
