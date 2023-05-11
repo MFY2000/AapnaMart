@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:apna_mart/Utils/CustomTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -10,6 +12,9 @@ class PasswordTextFeild extends StatefulWidget {
   final TextEditingController controller;
   final String label;
   final TextInputType inputType;
+  final IconData normal;
+  final IconData onTapIcon;
+  // final Function onTap;
 
   PasswordTextFeild({
     super.key,
@@ -18,6 +23,9 @@ class PasswordTextFeild extends StatefulWidget {
     this.isHidden = true,
     this.isGenerated = false,
     this.inputType = TextInputType.text,
+    this.normal = Icons.visibility,
+    this.onTapIcon = Icons.visibility_off,
+    // this.onTap =  () {},
   });
 
   @override
@@ -86,7 +94,7 @@ class _PasswordTextFeildState extends State<PasswordTextFeild> {
               padding: EdgeInsets.only(
                   right: Get.width * 0.025, top: Get.height * 0.02),
               child: Icon(
-                widget.isHidden ? Icons.visibility : Icons.visibility_off,
+                widget.isHidden ? widget.normal : widget.onTapIcon,
                 size: 23,
               ),
             ),
@@ -101,4 +109,5 @@ class _PasswordTextFeildState extends State<PasswordTextFeild> {
       widget.isHidden = !widget.isHidden;
     });
   }
+
 }

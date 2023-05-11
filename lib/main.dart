@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Apna Mart',
       theme: (CustomTheme()).theme(),
-      // initialRoute: Rout esClass.getPolicy(),
+      // initialRoute: RoutesClass.getPolicy(),
       getPages: RoutesClass.routes,
     );
   }

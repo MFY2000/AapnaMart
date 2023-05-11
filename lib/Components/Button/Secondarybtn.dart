@@ -4,12 +4,12 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 
-class PrimaryBtn extends StatelessWidget {
+class secondaryBtn extends StatelessWidget {
   final bool isDisable;
   final bool isLoading;
   final String title;
   final void Function()? ontapFunc;
-  const PrimaryBtn(
+  const secondaryBtn(
       {super.key,
       required this.title,
       required this.ontapFunc,
@@ -27,10 +27,12 @@ class PrimaryBtn extends StatelessWidget {
             child: GestureDetector(
                 onTap: isDisable ? () {} : ontapFunc,
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: Get.height * 0.015),
+                  padding: EdgeInsets.symmetric(
+                      vertical: Get.height * 0.005,
+                      horizontal: Get.width * .05),
                   decoration: BoxDecoration(
-                    color: CustomTheme().primaryBTN,
-                    borderRadius: BorderRadius.circular(Get.width * 0.05),
+                    color: CustomTheme().primayColor,
+                    // borderRadius: BorderRadius.circular(Get.width * 0.05),
                   ),
                   child: Center(
                     child: Text(

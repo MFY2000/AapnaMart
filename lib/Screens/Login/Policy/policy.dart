@@ -59,10 +59,8 @@ class PolicyScreen extends StatelessWidget {
               height: Get.height * .1,
             ),
             PrimaryBtn(
-              title: "Procced",
-              ontapFunc: () {
-                Get.toNamed("/policy");
-              },
+              title: "Back",
+              ontapFunc: () => Get.back(),
             )
           ],
         ),

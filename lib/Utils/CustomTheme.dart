@@ -15,6 +15,8 @@ class CustomTheme {
   final lightColor = const Color(0xFFFFFFFF);
   final darkColor = const Color(0xFF000000);
 
+  final backgroundColor = const Color(0xFFE2E8F0);
+
   // Font Sizes
   final headingsize = 24.0;
   final mediumSize = 18.0;
@@ -59,7 +61,7 @@ class CustomTheme {
           color: fontsColor,
           fontFamily: "Urbanist",
           fontSize: headingsize,
-          fontWeight: FontWeight.normal),
+          fontWeight: FontWeight.bold),
       displayMedium: TextStyle(
           color: fontsColor,
           fontFamily: "Urbanist",
@@ -96,6 +98,18 @@ class CustomTheme {
           fontSize: smallSize,
           letterSpacing: 0.5,
           fontWeight: FontWeight.bold),
+      titleLarge: TextStyle(
+          color: darkColor,
+          fontFamily: "Urbanist",
+          fontSize: 13,
+          letterSpacing: 0.5,
+          fontWeight: FontWeight.bold),
+      titleMedium: TextStyle(
+          color: darkColor,
+          fontFamily: "Urbanist",
+          fontSize: 13,
+          letterSpacing: 0.5,
+          fontWeight: FontWeight.normal),
     );
   }
 }

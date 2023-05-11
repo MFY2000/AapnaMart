@@ -63,7 +63,7 @@ class successFull extends StatelessWidget {
             PrimaryBtn(
               title: "Procced",
               ontapFunc: () {
-                Get.toNamed("/policy");
+                Get.offAndToNamed("/profileInfo");
               },
             )
           ],

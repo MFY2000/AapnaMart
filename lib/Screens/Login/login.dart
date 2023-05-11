@@ -81,16 +81,16 @@ class LoginScreenState extends State<LoginScreen> {
                           ? "Continue"
                           : (typeOfUser == 1 ? "Login" : "Register"),
                       ontapFunc: () {
-                        if (_formKey.currentState!.validate()) {
-                          print("Out Side Fill Form");
-                          typeOfUser == 0
-                              ? onContinue()
-                              : typeOfUser == 1
-                                  ? login()
-                                  : register();
-                        } else {
-                          print("Pls Fill Form");
-                        }
+                        // if (_formKey.currentState!.validate()) {
+                        print("Out Side Fill Form");
+                        typeOfUser == 0
+                            ? onContinue()
+                            : typeOfUser == 1
+                                ? login()
+                                : register();
+                        // } else {
+                        //   print("Pls Fill Form");
+                        // }
                       }),
                 ]),
           ),
@@ -98,7 +98,6 @@ class LoginScreenState extends State<LoginScreen> {
   }
 
   onContinue() {
-    print("Validated");
     bool isEmail = _email.text == "f@gm.com";
 
     setState(() {
@@ -108,7 +107,9 @@ class LoginScreenState extends State<LoginScreen> {
 
   login() {}
 
-  register() {}
+  register() {
+    Get.offAndToNamed("/successfull");
+  }
 
   renderDifferentWidget() {
     switch (typeOfUser) {
