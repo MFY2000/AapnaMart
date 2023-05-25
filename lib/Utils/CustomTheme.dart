@@ -57,6 +57,7 @@ class CustomTheme {
 
   TextTheme textTheme() {
     return TextTheme(
+<<<<<<< Updated upstream
       displayLarge: TextStyle(
           color: fontsColor,
           fontFamily: "Urbanist",
@@ -111,5 +112,79 @@ class CustomTheme {
           letterSpacing: 0.5,
           fontWeight: FontWeight.normal),
     );
+=======
+        displayLarge: TextStyle(
+            color: fontsColor,
+            fontFamily: "Urbanist",
+            fontSize: headingsize,
+            fontWeight: FontWeight.bold),
+        displayMedium: TextStyle(
+            color: fontsColor,
+            fontFamily: "Urbanist",
+            fontSize: mediumSize,
+            fontWeight: FontWeight.normal),
+        displaySmall: TextStyle(
+            color: fontsColor,
+            fontFamily: "Urbanist",
+            fontSize: smallSize,
+            fontWeight: FontWeight.normal),
+        headlineLarge: TextStyle(
+            color: primayColor,
+            fontFamily: "aAtmospheric",
+            fontSize: mediumSize,
+            letterSpacing: 2,
+            wordSpacing: 2,
+            fontWeight: FontWeight.normal),
+        headlineMedium: TextStyle(
+            color: fontsColor,
+            fontFamily: "Poppins",
+            fontSize: mediumSize,
+            letterSpacing: 2,
+            wordSpacing: 2,
+            fontWeight: FontWeight.bold),
+        labelLarge: TextStyle(
+            color: lightColor,
+            fontFamily: "Urbanist",
+            fontSize: smallSize,
+            letterSpacing: 0.5,
+            fontWeight: FontWeight.bold),
+        labelSmall: TextStyle(
+            color: darkColor,
+            fontFamily: "Urbanist",
+            fontSize: smallSize,
+            letterSpacing: 0.5,
+            fontWeight: FontWeight.bold),
+        titleLarge: TextStyle(
+            color: darkColor,
+            fontFamily: "Urbanist",
+            fontSize: 13,
+            letterSpacing: 0.5,
+            fontWeight: FontWeight.bold),
+        titleMedium: TextStyle(
+            color: darkColor,
+            fontFamily: "Urbanist",
+            fontSize: 13,
+            letterSpacing: 0.5,
+            fontWeight: FontWeight.normal),
+        bodyLarge: TextStyle(
+            color: darkColor,
+            fontFamily: "Viga",
+            fontSize: 24,
+            letterSpacing: 0.5,
+            fontWeight: FontWeight.bold),
+        bodyMedium: TextStyle(
+            color: primayColor,
+            fontFamily: "Urbanist",
+            fontSize: 13,
+            // letterSpacing: 0.5,
+            decoration: TextDecoration.underline,
+            fontWeight: FontWeight.bold),
+        bodySmall: TextStyle(
+            color: lightColor,
+            fontFamily: "Urbanist",
+            fontSize: 13,
+            // letterSpacing: 0.5,
+            fontWeight: FontWeight.normal));
+>>>>>>> Stashed changes
   }
 }
