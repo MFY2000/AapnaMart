@@ -24,14 +24,13 @@ class LoginScreenState extends State<LoginScreen> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _username = TextEditingController();
+  final TextEditingController _admin = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
           child: Container(
             padding: EdgeInsets.symmetric(
                 horizontal: Get.width * 0.1, vertical: Get.height * 0.07),
@@ -114,7 +113,29 @@ class LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  login() {}
+  login() async {
+    var respones = await api
+        .post(api.login, {"email": _email.text, "password": _password.text});
+    if (respones != null) {
+      if (respones["user"]["id"] != null) {
+        var screen = "/home2";
+        storage.write("user", respones["user"]["id"]);
+        var user = respones["user"]["type"];
+        if (user == "customer" || user == "Customer") {
+          var isProfile = respones["user"]["cnic"] != null;
+          screen = isProfile ? "/home" : "/profile";
+          storage.write("Profile", isProfile);
+        } else {
+          storage.write("worker", true);
+          screen = "/home2";
+        }
+
+        Get.offAndToNamed(screen);
+      } else {
+        Get.snackbar("Error", respones["message"]);
+      }
+    }
+  }
 
   register() async {
     var body = {
@@ -123,13 +144,27 @@ class LoginScreenState extends State<LoginScreen> {
       "name": _username.text,
       "type": isWorker ? "Worker" : "Customer",
     };
+    var path = api.register;
 
-    var respones = await api.post(api.register, body);
-    print(respones);
+    if (isWorker) {
+      path = api.registerWorker;
+      body["adminkey"] = _admin.text;
+    }
+
+    var respones = await api.post(path, body);
     if (respones != null) {
-      storage.write("user", respones["user"]["id"]);
-      storage.write("Profile", false);
-      Get.offAndToNamed("/successfull");
+      if (respones["user"]["id"] != null) {
+        storage.write("user", respones["user"]["id"]);
+        if (!isWorker) {
+          storage.write("Profile", false);
+          Get.offAndToNamed("/successfull");
+        } else {
+          storage.write("worker", true);
+          Get.offAndToNamed("/home2");
+        }
+      } else {
+        Get.snackbar("Error", respones["message"]);
+      }
     }
   }
 
@@ -162,7 +197,7 @@ class LoginScreenState extends State<LoginScreen> {
             ),
             if (isWorker)
               PrimaryTextFeild(
-                controller: _password,
+                controller: _admin,
                 label: 'Admin Key',
               ),
           ],

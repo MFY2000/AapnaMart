@@ -40,8 +40,9 @@ class _SplashScreenState extends State<SplashScreen> {
         screen = "/borading";
       } else {
         var profile = storage.read("Profile");
-        if (profile) {
-          screen = "/home";
+        if (profile != null && profile) {
+          var worker = storage.read("worker");
+          screen = worker != null && worker ? "/home2" : "/home";
         } else {
           screen = "/profileInfo";
         }

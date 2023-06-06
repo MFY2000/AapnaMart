@@ -104,7 +104,10 @@ class _moreInfoState extends State<moreInfo> {
 
       var respones = await api.put(api.register + id, body);
 
-      print(respones);
+      if (respones != null) {
+        storage.write("Profile", true);
+        Get.offAndToNamed("/home");
+      }
     }
 
     setState(() {

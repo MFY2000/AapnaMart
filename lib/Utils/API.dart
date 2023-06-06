@@ -7,13 +7,15 @@ class API {
   late String login;
   late String register;
   late String getEmail;
-  late String createUser;
+  late String registerWorker;
 
   API() {
     BASE_URL = "http://192.168.100.5:3000";
     login = "$BASE_URL/auth/login";
     register = "$BASE_URL/user/";
     getEmail = "$BASE_URL/auth/getEmail";
+    registerWorker = "$BASE_URL/auth/loginWorker";
+    
   }
 
   Future<dynamic> post(path, body) async {
