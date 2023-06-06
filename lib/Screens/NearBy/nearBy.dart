@@ -29,8 +29,11 @@ class _nearByScreenState extends State<nearByScreen> {
               const SizedBox(
                 height: 20,
               ),
-
-              ListView.builder(itemBuilder: (context, index) => , itemCount: 10, shrinkWrap: true,),
+              ListView.builder(
+                itemBuilder: (context, index) => Container(),
+                itemCount: 10,
+                shrinkWrap: true,
+              ),
             ],
           )),
       bottomNavigationBar: const CustombottomNavBar(),

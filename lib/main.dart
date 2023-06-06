@@ -7,8 +7,6 @@ import 'package:camera/camera.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  cameras = await availableCameras();
   runApp(const MyApp());
 }
 
@@ -21,11 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Apna Mart',
       theme: (CustomTheme()).theme(),
-<<<<<<< Updated upstream
-      // initialRoute: RoutesClass.getPolicy(),
-=======
-      initialRoute: RoutesClass.getnearBy(),
->>>>>>> Stashed changes
+      initialRoute: RoutesClass.getSplash(),
       getPages: RoutesClass.routes,
     );
   }

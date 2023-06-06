@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void goTO() async {
     // Api call to get Data, if data is null then go to onborading
     await Future.delayed(Duration(seconds: 5));
-
+    GetStorage()
 
     Get.offAndToNamed("/borading");
   }
