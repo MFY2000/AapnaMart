@@ -19,7 +19,7 @@ class PrimaryBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isLoading
-        ? Center(
+        ? const Center(
             child: CircularProgressIndicator(),
           )
         : Opacity(

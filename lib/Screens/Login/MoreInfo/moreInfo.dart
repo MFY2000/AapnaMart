@@ -2,6 +2,7 @@ import 'package:apna_mart/Components/Button/PrimaryBtn.dart';
 import 'package:apna_mart/Components/TextFeild/PasswordTextFeild.dart';
 import 'package:apna_mart/Components/TextFeild/PrimaryTextFeild.dart';
 import 'package:apna_mart/Components/CheckBox/PrimaryCheckBox.dart';
+import 'package:apna_mart/Utils/Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,14 +16,17 @@ class moreInfo extends StatefulWidget {
 class _moreInfoState extends State<moreInfo> {
   bool isAgree = false;
   final _formKey = GlobalKey<FormState>();
+  final _phone = TextEditingController();
+  final _address = TextEditingController();
+  final _cnic = TextEditingController();
+  final _cnicIssueDate = TextEditingController();
+  bool isLoader = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
           child: Container(
             padding: EdgeInsets.symmetric(
                 horizontal: Get.width * 0.1, vertical: Get.height * 0.07),
@@ -43,32 +47,27 @@ class _moreInfoState extends State<moreInfo> {
                       style: Theme.of(context).textTheme.displayLarge,
                     ),
                   ),
-                  Text(
-                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,",
+                  Text(welcomeMessage,
                       style: Theme.of(context).textTheme.displaySmall),
                   Form(
                       key: _formKey,
                       child: Column(
                         children: [
                           PrimaryTextFeild(
-                            typeOfFeild: 2,
-                            controller: TextEditingController(),
-                            label: 'Email',
-                          ),
-                          PasswordTextFeild(
-                            controller: TextEditingController(),
-                            label: "Address",
-                            normal: Icons.location_searching,
+                            controller: _phone,
+                            label: 'Phone Number',
                           ),
                           PrimaryTextFeild(
-                            typeOfFeild: 2,
-                            controller: TextEditingController(),
+                            controller: _address,
+                            label: "Address",
+                          ),
+                          PrimaryTextFeild(
+                            controller: _cnic,
                             label: 'CNIC',
                           ),
                           PrimaryTextFeild(
-                            typeOfFeild: 2,
-                            controller: TextEditingController(),
-                            label: 'Issue Date',
+                            controller: _cnicIssueDate,
+                            label: 'CNIC Issue Date',
                           ),
                         ],
                       )),
@@ -82,15 +81,34 @@ class _moreInfoState extends State<moreInfo> {
                   PrimaryBtn(
                       title: "Procced",
                       isDisable: !isAgree,
-                      ontapFunc: () {
-                        // if (_formKey.currentState!.validate()) {
-                        Get.offAndToNamed("/home");
-                        // } else {
-                        //   print("Pls Fill Form");
-                        // }
-                      }),
+                      isLoading: isLoader,
+                      ontapFunc: ontap),
                 ]),
           ),
         ));
+  }
+
+  ontap() async {
+    setState(() {
+      isLoader = true;
+    });
+
+    if (_formKey.currentState!.validate()) {
+      var body = {
+        "cnic": _cnic.text,
+        "cnicIssueDate": _cnicIssueDate.text,
+        "address": _address.text,
+        "phone": _phone.text,
+      };
+      var id = storage.read("user");
+
+      var respones = await api.put(api.register + id, body);
+
+      print(respones);
+    }
+
+    setState(() {
+      isLoader = false;
+    });
   }
 }

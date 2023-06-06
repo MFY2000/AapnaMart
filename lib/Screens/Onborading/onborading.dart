@@ -56,8 +56,7 @@ class _OnBoradingScreenState extends State<OnBoradingScreen> {
                   children: [
                     SizedBox(
                         height: Get.height * .45,
-                        child: Image.network(
-                            boradingData[currentIndex]["image"]!,
+                        child: Image.asset(boradingData[currentIndex]["image"]!,
                             fit: BoxFit.contain)),
                     Text(
                       boradingData[currentIndex]["heading"]!,

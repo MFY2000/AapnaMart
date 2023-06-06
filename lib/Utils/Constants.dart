@@ -1,26 +1,26 @@
 // ignore_for_file: file_names
 
+import 'package:apna_mart/Utils/API.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-
-const String boradingImage =
-    "https://img.freepik.com/free-vector/happy-freelancer-with-computer-home-young-man-sitting-armchair-using-laptop-chatting-online-smiling-vector-illustration-distance-work-online-learning-freelance_74855-8401.jpg?w=2000";
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 const List<Map<String, String>> boradingData = [
   {
-    "image": boradingImage,
+    "image": "assets/images/1.jpg",
     "heading": "Compatible Partners 1",
     "details":
         "Your Safety is our top priority. Make your profile with peace and ease"
   },
   {
-    "image": boradingImage,
+    "image": "assets/images/2.jpg",
     "heading": "Compatible Partners 2",
     "details":
         "Your Safety is our top priority. Make your profile with peace and ease"
   },
   {
-    "image": boradingImage,
+    "image": "assets/images/3.jpg",
     "heading": "Compatible Partners 3",
     "details":
         "Your Safety is our top priority. Make your profile with peace and ease"
@@ -54,6 +54,12 @@ List<Map<String, dynamic>> screenCount = [
   {"name": "Profile", "icon": Icons.person, "route": "/profile"},
 ];
 
+String welcomeMessage =
+    "We're delighted to have you here. To ensure the best possible experience, we kindly request you to provide us with some additional details. By sharing a bit about yourself and your specific needs, we can tailor our assistance to better suit you.";
 
+var mainBodyPadding = EdgeInsets.symmetric(
+    horizontal: Get.width * 0.06, vertical: Get.height * 0.02);
 
 late List<CameraDescription> cameras;
+late GetStorage storage;
+late API api;

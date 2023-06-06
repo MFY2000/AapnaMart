@@ -1,12 +1,15 @@
+import 'package:apna_mart/Utils/API.dart';
 import 'package:apna_mart/Utils/Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'Utils/CustomTheme.dart';
 import 'Utils/Routes.dart';
 import 'package:camera/camera.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   runApp(const MyApp());
 }
 

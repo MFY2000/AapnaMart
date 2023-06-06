@@ -1,4 +1,5 @@
 import 'package:apna_mart/Screens/Home/Home.dart';
+import 'package:apna_mart/Screens/Login/Internet/Internet.dart';
 import 'package:apna_mart/Screens/Login/Login.dart';
 import 'package:apna_mart/Screens/Login/MoreInfo/moreInfo.dart';
 import 'package:apna_mart/Screens/Login/Policy/policy.dart';
@@ -20,6 +21,7 @@ class RoutesClass {
   static String policy = "/policy";
   static String scan = "/scan";
   static String nearBy = "/nearBy";
+  static String internet = "/internet";
 
   static String getSplash() => splash;
   static String getonborading() => onborading;
@@ -29,6 +31,7 @@ class RoutesClass {
   static String getPolicy() => policy;
   static String getscan() => scan;
   static String getInfo() => profileInfo;
+  static String getinternet() => internet;
   static String getnearBy() => nearBy;
 
   static List<GetPage> routes = [
@@ -41,5 +44,7 @@ class RoutesClass {
     GetPage(page: () => const moreInfo(), name: profileInfo),
     GetPage(page: () => const ScanScreen(), name: scan),
     GetPage(page: () => const nearByScreen(), name: nearBy),
+    GetPage(page: () => const Internet(), name: internet),
+
   ];
 }

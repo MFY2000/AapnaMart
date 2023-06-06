@@ -1,5 +1,9 @@
+import 'package:apna_mart/Utils/API.dart';
+import 'package:apna_mart/Utils/Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:connectivity/connectivity.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../Utils/Routes.dart';
 
@@ -14,15 +18,48 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    inilization();
     goTO();
   }
 
-  void goTO() async {
-    // Api call to get Data, if data is null then go to onborading
-    await Future.delayed(Duration(seconds: 5));
-    GetStorage()
+  inilization() async {
+    print("GetStorage initilized");
+    storage = GetStorage();
+    api = API();
+  }
 
-    Get.offAndToNamed("/borading");
+  void goTO() async {
+    var screen = "";
+    bool internet = await checkInternetConnectivity();
+
+    if (internet) {
+      var user = storage.read("user");
+
+      print(user);
+      if (user == null || user == "") {
+        screen = "/borading";
+      } else {
+        var profile = storage.read("Profile");
+        if (profile) {
+          screen = "/home";
+        } else {
+          screen = "/profileInfo";
+        }
+      }
+    } else {
+      Get.snackbar("No Internet", "Please check your internet connection",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
+      screen = "/internet";
+    }
+
+    Get.offAndToNamed(screen);
+  }
+
+  Future<bool> checkInternetConnectivity() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    return connectivityResult != ConnectivityResult.none;
   }
 
   @override

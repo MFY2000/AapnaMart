@@ -4,6 +4,7 @@ import 'package:apna_mart/Components/Button/PrimaryBtn.dart';
 import 'package:apna_mart/Components/DropDown/PrimaryDropDown.dart';
 import 'package:apna_mart/Components/TextFeild/PasswordTextFeild.dart';
 import 'package:apna_mart/Components/TextFeild/PrimaryTextFeild.dart';
+import 'package:apna_mart/Utils/Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,13 +18,12 @@ class LoginScreen extends StatefulWidget {
 class LoginScreenState extends State<LoginScreen> {
   int typeOfUser = 0;
   bool isWorker = false;
+  bool isLoader = false;
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _username = TextEditingController();
-  // TextEditingController _username =  TextEditingController();
-  // TextEditingController _ =  TextEditingController()
 
   @override
   Widget build(BuildContext context) {
@@ -77,38 +77,60 @@ class LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   PrimaryBtn(
+                      isLoading: isLoader,
                       title: typeOfUser == 0
                           ? "Continue"
                           : (typeOfUser == 1 ? "Login" : "Register"),
-                      ontapFunc: () {
-                        // if (_formKey.currentState!.validate()) {
-                        print("Out Side Fill Form");
-                        typeOfUser == 0
-                            ? onContinue()
-                            : typeOfUser == 1
-                                ? login()
-                                : register();
-                        // } else {
-                        //   print("Pls Fill Form");
-                        // }
-                      }),
+                      ontapFunc: ontap),
                 ]),
           ),
         ));
   }
 
-  onContinue() {
-    bool isEmail = _email.text == "f@gm.com";
+  ontap() {
+    setState(() {
+      isLoader = true;
+    });
+
+    if (typeOfUser == 0) {
+      onContinue();
+    } else if (typeOfUser == 1) {
+      login();
+    } else {
+      register();
+    }
 
     setState(() {
-      typeOfUser = typeOfUser == 0 && isEmail ? 1 : 2;
+      isLoader = false;
     });
+  }
+
+  onContinue() async {
+    var respones = await api.post(api.getEmail, {"email": _email.text});
+    if (respones != null) {
+      setState(() {
+        typeOfUser = respones["isUser"] ? 1 : 2;
+      });
+    }
   }
 
   login() {}
 
-  register() {
-    Get.offAndToNamed("/successfull");
+  register() async {
+    var body = {
+      "email": _email.text,
+      "password": _password.text,
+      "name": _username.text,
+      "type": isWorker ? "Worker" : "Customer",
+    };
+
+    var respones = await api.post(api.register, body);
+    print(respones);
+    if (respones != null) {
+      storage.write("user", respones["user"]["id"]);
+      storage.write("Profile", false);
+      Get.offAndToNamed("/successfull");
+    }
   }
 
   renderDifferentWidget() {
@@ -130,11 +152,11 @@ class LoginScreenState extends State<LoginScreen> {
               label: 'Password',
             ),
             PrimaryDropDown(
-              productItems: ["aas", "asnad", "dsnkj"],
-              label: 'aaa',
+              productItems: const ["Customer", "Worker"],
+              label: 'Customer',
               onChanged: (value) {
                 setState(() {
-                  isWorker = true;
+                  isWorker = value == "Worker";
                 });
               },
             ),
