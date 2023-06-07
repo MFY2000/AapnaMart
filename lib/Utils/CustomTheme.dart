@@ -16,6 +16,7 @@ class CustomTheme {
   final darkColor = const Color(0xFF000000);
 
   final backgroundColor = const Color(0xFFE2E8F0);
+  final backgroundColor2 = const Color(0xFFF4F4F4);
 
   // Font Sizes
   final headingsize = 24.0;

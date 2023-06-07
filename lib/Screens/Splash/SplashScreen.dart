@@ -23,7 +23,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   inilization() async {
-    print("GetStorage initilized");
     storage = GetStorage();
     api = API();
   }
@@ -34,14 +33,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (internet) {
       var user = storage.read("user");
-
-      print(user);
       if (user == null || user == "") {
         screen = "/borading";
       } else {
         var profile = storage.read("Profile");
         if (profile != null && profile) {
           var worker = storage.read("worker");
+          profileData = await api.get(api.register + user);
+          profileData = profileData["user"];
           screen = worker != null && worker ? "/home2" : "/home";
         } else {
           screen = "/profileInfo";

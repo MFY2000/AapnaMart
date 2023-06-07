@@ -32,15 +32,15 @@ const List<String> productTab = [
   "Common Products",
   "Monthly Grocery"
 ];
-const List<String> featureGrid = [
-  "Monthly Bill",
-  "Shops",
-  "My Account",
-  "Card",
-  "Bill",
-  "Report",
-  "My Order",
-  "Receipt"
+const List<Map<String, dynamic>> featureGrid = [
+  {"name": "Monthly Bill", "image": "1.png"},
+  {"name": "Shops", "image": "2.png"},
+  {"name": "My Account", "image": "3.png"},
+  {"name": "Card", "image": "4.png"},
+  {"name": "Bill", "image": "5.png"},
+  {"name": "Report", "image": "6.png"},
+  {"name": "My Order", "image": "7.png"},
+  {"name": "Receipt", "image": "8.png"},
 ];
 
 const selectedProductTab = 0;
@@ -63,3 +63,6 @@ var mainBodyPadding = EdgeInsets.symmetric(
 late List<CameraDescription> cameras;
 late GetStorage storage;
 late API api;
+
+late var profileData;
+late var productList;

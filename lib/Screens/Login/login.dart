@@ -129,7 +129,7 @@ class LoginScreenState extends State<LoginScreen> {
           storage.write("worker", true);
           screen = "/home2";
         }
-
+        profileData = respones["user"];
         Get.offAndToNamed(screen);
       } else {
         Get.snackbar("Error", respones["message"]);

@@ -1,11 +1,8 @@
-import 'package:apna_mart/Utils/API.dart';
-import 'package:apna_mart/Utils/Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'Utils/CustomTheme.dart';
 import 'Utils/Routes.dart';
-import 'package:camera/camera.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,8 +19,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Apna Mart',
       theme: (CustomTheme()).theme(),
-      initialRoute: RoutesClass.getHome(),
+      initialRoute: RoutesClass.getSplash(),
       getPages: RoutesClass.routes,
     );
   }
 }
+  
