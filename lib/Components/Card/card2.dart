@@ -7,6 +7,7 @@ class ProductCard2 extends StatelessWidget {
   final String title;
   final String subTitle;
   final String image;
+  
   const ProductCard2(
       {super.key,
       required this.title,

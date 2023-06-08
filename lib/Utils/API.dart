@@ -9,7 +9,7 @@ class API {
   late String register;
   late String getEmail;
   late String registerWorker;
-  late String getUser;
+  late String getMart;
   late String getProduct;
 
   API() {
@@ -20,6 +20,7 @@ class API {
     getEmail = "$BASE_URL/auth/getEmail";
     registerWorker = "$BASE_URL/auth/loginWorker";
     getProduct = "$BASE_URL/product/";
+    getMart = "$BASE_URL/mart/";
   }
 
   Future<dynamic> post(path, body) async {

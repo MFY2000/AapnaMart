@@ -48,7 +48,7 @@ int selectedScreen = 2;
 
 List<Map<String, dynamic>> screenCount = [
   {"name": "Scan", "icon": Icons.fit_screen_sharp, "route": "/scan"},
-  {"name": "Location", "icon": Icons.location_on, "route": "/location"},
+  {"name": "Location", "icon": Icons.location_on, "route": "/nearBy"},
   {"name": "Home", "icon": Icons.home_outlined, "route": "/home"},
   {"name": "Cart", "icon": Icons.shopping_cart, "route": "/cart"},
   {"name": "Profile", "icon": Icons.person, "route": "/profile"},
@@ -66,3 +66,6 @@ late API api;
 
 late var profileData;
 late var productList;
+late List<dynamic> cartList;
+late List<dynamic> orderList;
+late dynamic selectedProduct;

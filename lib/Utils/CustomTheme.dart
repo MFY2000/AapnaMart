@@ -111,6 +111,12 @@ class CustomTheme {
           fontSize: 13,
           letterSpacing: 0.5,
           fontWeight: FontWeight.normal),
+      bodyLarge: TextStyle(
+          color: darkColor,
+          fontFamily: "Urbanist",
+          fontSize: headingsize,
+          letterSpacing: 0.5,
+          fontWeight: FontWeight.bold),
     );
   }
 }

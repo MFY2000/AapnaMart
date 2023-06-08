@@ -112,15 +112,13 @@ class _HomeScreenState extends State<HomeScreen>
                   SizedBox(
                       height: Get.height * .09,
                       child: isLoading
-                          ? CircularProgressIndicator()
+                          ? Center(child: CircularProgressIndicator())
                           : ListView.builder(
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
                               itemCount: productList.length,
                               itemBuilder: (context, index) => productCard(
-                                title: productList[index]["name"],
-                                subTitle: productList[index]["description"],
-                                image: productList[index]["image"],
+                                data: productList[index],
                               ),
                             )),
                   SizedBox(
@@ -179,7 +177,9 @@ class _HomeScreenState extends State<HomeScreen>
                                           .titleMedium),
                             )),
                   ),
-                  tabController(products: productList),
+                  isLoading
+                      ? CircularProgressIndicator()
+                      : tabController(products: productList),
                 ],
               )),
         ),

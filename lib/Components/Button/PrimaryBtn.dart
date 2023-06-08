@@ -9,12 +9,16 @@ class PrimaryBtn extends StatelessWidget {
   final bool isLoading;
   final String title;
   final void Function()? ontapFunc;
+  final Color color;
+
   const PrimaryBtn(
       {super.key,
       required this.title,
       required this.ontapFunc,
+      this.color =  const Color(0xFF188AEC),
       this.isDisable = false,
-      this.isLoading = false});
+      this.isLoading = false,
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +33,7 @@ class PrimaryBtn extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: Get.height * 0.015),
                   decoration: BoxDecoration(
-                    color: CustomTheme().primaryBTN,
+                    color: color,
                     borderRadius: BorderRadius.circular(Get.width * 0.05),
                   ),
                   child: Center(
