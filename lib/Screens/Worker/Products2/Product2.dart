@@ -62,35 +62,39 @@ class _Product2ScreenState extends State<Product2Screen>
                     height: Get.height * .01,
                   ),
                   Text(
-                    "Top Search Product",
+                    "Mart Products",
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   SizedBox(
                     height: Get.height * .01,
                   ),
-                  SizedBox(
-                    height: Get.height * .075,
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: productTab.length,
-                        itemBuilder: (context, index) => Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: Get.width * .04),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: Get.height * .01,
-                                  horizontal: Get.width * .01),
-                              child: Text(productTab[index],
-                                  style: index == selectedProductTab
-                                      ? Theme.of(context).textTheme.bodyMedium
-                                      : Theme.of(context)
-                                          .textTheme
-                                          .titleMedium),
-                            )),
-                  ),
                   isLoading
                       ? CircularProgressIndicator()
-                      : tabController(products: productList),
+                      : GridView.count(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 4.0,
+                          mainAxisSpacing: 8.0,
+                          childAspectRatio: .8,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          children: List.generate(productList.length, (index) {
+                            var element = productList[index];
+                            return GestureDetector(
+                              onTap: () {},
+                              child: Column(
+                                children: [
+                                  Image.network(api.File_URL + element["image"]),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: Get.height * .01),
+                                    child: Text(element["name"],
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium),
+                                  )
+                              ]),
+                            );
+                          })),
                 ],
               )),
         ),

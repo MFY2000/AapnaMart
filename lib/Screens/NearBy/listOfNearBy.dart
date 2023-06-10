@@ -2,8 +2,7 @@ import 'package:apna_mart/Components/Card/card2.dart';
 import 'package:apna_mart/Components/Card/card3.dart';
 import 'package:apna_mart/Utils/Constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class listOfNearby extends StatefulWidget {
   final String loaction;
@@ -26,7 +25,6 @@ class _listOfNearbyState extends State<listOfNearby> {
 
   getMartList() async {
     var response = await api.get(api.getMart + widget.loaction);
-    print(response);
     if (response != null) {
       setState(() {
         martList = response["marts"];
@@ -35,18 +33,31 @@ class _listOfNearbyState extends State<listOfNearby> {
     }
   }
 
+  void openMap(index) async {
+    String googleMapsUrl =
+        'https://www.google.com/maps/search/?api=1&query=${martList[index]["address"]["latitude"]},${martList[index]["address"]["longitude"]}';
+
+    if (await canLaunch(googleMapsUrl)) {
+      await launch(googleMapsUrl);
+    } else {
+      throw 'Could not open Google Maps.';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemBuilder: (context, index) => ProductCard3(
+      itemBuilder: (context, index) => GestureDetector(
+        onTap: () => openMap(index),
+        child: ProductCard3(
           title: martList[index]["name"],
           subTitle: martList[index]["address"]["Location"],
           image: martList[index]["profilePicture"],
           isButton: true,
           button: "Loaction",
-          // onTap: 
-          ),
-          
+          // onTap:
+        ),
+      ),
       itemCount: martList.length,
       shrinkWrap: true,
     );

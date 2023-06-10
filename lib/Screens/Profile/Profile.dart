@@ -59,15 +59,15 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       ProfileInfoRow(
-                        name: profileData[0]["name"],
-                        subtext: profileData[0]["email"] +
-                            " ( ${profileData[0]["type"]} )",
+                        name: profileData["name"],
+                        subtext: profileData["email"] +
+                            " ( ${profileData["type"]} )",
                       ),
                       Padding(
                         padding:
                             EdgeInsets.symmetric(vertical: Get.height * 0.02),
                         child: Text(
-                          "${profileData[0]['noOfOrders']} Orders",
+                          "${profileData['noOfOrders']} Orders",
                           style: TextStyle(
                             fontSize: 18,
                             color: CustomTheme().fontsColor,
@@ -84,7 +84,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                         title: "Edit Profile",
                         icon: Icon(
                           Icons.edit,
-                          color: CustomTheme().primaryBTN,
+                          color: CustomTheme().lightColor,
                           size: 18,
                         ),
                         borderColor: CustomTheme().primayColor,
@@ -94,7 +94,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                       title: "Help Center",
                       icon: Icon(
                         Icons.help_outline_outlined,
-                        color: CustomTheme().primaryBTN,
+                        color: CustomTheme().lightColor,
                         size: 18,
                       ),
                       borderColor: CustomTheme().primayColor,
@@ -123,7 +123,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                       title: "Invite Friends",
                       icon: Icon(
                         Icons.share,
-                        color: CustomTheme().primaryBTN,
+                        color: CustomTheme().lightColor,
                         size: 18,
                       ),
                       borderColor: CustomTheme().primayColor,
@@ -140,12 +140,15 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                         title: "Log Out",
                         icon: Icon(
                           Icons.logout_outlined,
-                          color: CustomTheme().primaryBTN,
+                          color: CustomTheme().lightColor,
                           size: 18,
                         ),
                         borderColor: CustomTheme().primayColor,
                         containerColor: CustomTheme().primayColor,
-                        onClick: () {},
+                        onClick: () {
+                          storage.remove("user");
+                          Get.offAndToNamed("/splash");
+                        },
                       ),
                     ),
                   ],

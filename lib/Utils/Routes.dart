@@ -35,7 +35,7 @@ class RoutesClass {
   //
 
   static String home2 = "/home2";
-  static String Order = "/Order";
+  static String Order = "/order";
   static String products2 = "/products2";
 
   static String getSplash() => splash;

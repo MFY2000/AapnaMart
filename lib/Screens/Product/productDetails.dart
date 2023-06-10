@@ -17,6 +17,22 @@ class productScreen extends StatefulWidget {
 }
 
 class _productScreenState extends State<productScreen> {
+  bool isInCart = false;
+  int index = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    for (var i = 0; i < cartList.length; i++) {
+      if (cartList[i]["id"] == selectedProduct["id"]) {
+        index = i;
+        isInCart = true;
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,10 +61,9 @@ class _productScreenState extends State<productScreen> {
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       counter(
-                          count: 1,
-                          add: () {},
-                          remove: () {},
-                          color: CustomTheme().backgroundColor),
+                          count: isInCart ? cartList[index]["count"] : 1,
+                          add: (count) => onChnage(index, count),
+                          remove: (count) => onChnage(index, count)),
                     ],
                   ),
                   SizedBox(
@@ -104,23 +119,52 @@ class _productScreenState extends State<productScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                          width: Get.width * 0.3,
+                          width: Get.width * (!isInCart ? 0.3 : 0.9),
                           child: PrimaryBtn(
                             color: CustomTheme().primaryBTN,
                             title: "Buy now",
-                            ontapFunc: () {},
+                            ontapFunc: () => Get.toNamed("/cart"),
                           )),
-                      SizedBox(
-                          width: Get.width * 0.55,
-                          child: PrimaryBtn(
-                            title: "Add to Cart",
-                            ontapFunc: () {},
-                          )),
+                      !isInCart
+                          ? SizedBox(
+                              width: Get.width * 0.55,
+                              child: PrimaryBtn(
+                                title: 'Add to cart',
+                                ontapFunc: addtoCart,
+                              ))
+                          : Container(),
                     ],
                   )
                 ],
               )),
         ),
         bottomNavigationBar: const CustombottomNavBar());
+  }
+
+  onChnage(i, counter) {
+    if (counter) {
+      if (cartList[i]["quantity"] == cartList[i]["count"] + 1) {
+        Get.snackbar("Error",
+            "You can't add more than ${cartList[i]["quantity"]} items");
+      } else {
+        cartList[i]["count"] = cartList[i]["count"] + 1;
+      }
+    } else {
+      if (cartList[i]["count"] == 1) {
+        Get.snackbar("Error", "You can't remove less than 1 item");
+      } else {
+        cartList[i]["count"] = cartList[i]["count"] - 1;
+      }
+    }
+    setState(() {});
+  }
+
+  addtoCart() {
+    setState(() {
+      selectedProduct["count"] = 1;
+      cartList.add(selectedProduct);
+      isInCart = true;
+      index = cartList.length - 1;
+    });
   }
 }

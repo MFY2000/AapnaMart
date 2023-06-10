@@ -44,16 +44,23 @@ class _ScanScreenState extends State<ScanScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(isReady);
-    return MaterialApp(
-        home: Scaffold(
+    return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
         elevation: 0,
         title: const Text("Product List"),
         actions: [
-          IconButton(onPressed: () => Get.back(), icon: Icon(Icons.save)),
-          IconButton(onPressed: () => Get.back(), icon: Icon(Icons.close))
+          IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: Icon(Icons.save)),
+          IconButton(
+              onPressed: () {
+                selectedScreen = 3;
+                Get.toNamed("/cart");
+              },
+              icon: Icon(Icons.close))
         ],
       ),
       body: isReady
@@ -72,21 +79,27 @@ class _ScanScreenState extends State<ScanScreen> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: List.generate(
-                            10,
-                            (index) => Container(
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: Get.height * .01),
-                                  child: Text(
-                                    "6ae89q30$index",
-                                    style:
-                                        Theme.of(context).textTheme.bodySmall,
+                            cartList.length,
+                            (index) => GestureDetector(
+                                  onTap: () {
+                                    selectedProduct = cartList[index];
+                                    Get.toNamed("/productDetail");
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: Get.height * .01),
+                                    child: Text(
+                                      cartList[index]["id"],
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    ),
                                   ),
                                 )),
                       )),
                 )
               ],
             )
-          : Center(child: CircularProgressIndicator()),
-    ));
+          : const Center(child: CircularProgressIndicator()),
+    );
   }
 }

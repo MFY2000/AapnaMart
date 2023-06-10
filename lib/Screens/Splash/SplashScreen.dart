@@ -28,6 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void goTO() async {
+    //print("splash");
     var screen = "";
     bool internet = await checkInternetConnectivity();
 
@@ -37,10 +38,11 @@ class _SplashScreenState extends State<SplashScreen> {
         screen = "/borading";
       } else {
         var profile = storage.read("Profile");
-        if (profile != null && profile) {
-          var worker = storage.read("worker");
+        var worker = storage.read("worker");
+
+        if ((profile != null && profile) || (worker != null && worker)) {
           profileData = await api.get(api.register + user);
-          profileData = profileData["user"];
+          profileData = profileData["user"][0];
           screen = worker != null && worker ? "/home2" : "/home";
         } else {
           screen = "/profileInfo";

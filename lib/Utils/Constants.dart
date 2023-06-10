@@ -9,19 +9,19 @@ import 'package:get_storage/get_storage.dart';
 const List<Map<String, String>> boradingData = [
   {
     "image": "assets/images/1.jpg",
-    "heading": "Compatible Partners 1",
+    "heading": "onBorading 1",
     "details":
         "Your Safety is our top priority. Make your profile with peace and ease"
   },
   {
     "image": "assets/images/2.jpg",
-    "heading": "Compatible Partners 2",
+    "heading": "onBorading 2",
     "details":
         "Your Safety is our top priority. Make your profile with peace and ease"
   },
   {
     "image": "assets/images/3.jpg",
-    "heading": "Compatible Partners 3",
+    "heading": "onBorading 3",
     "details":
         "Your Safety is our top priority. Make your profile with peace and ease"
   },
@@ -43,7 +43,7 @@ const List<Map<String, dynamic>> featureGrid = [
   {"name": "Receipt", "image": "8.png"},
 ];
 
-const selectedProductTab = 0;
+int selectedProductTab = 0;
 int selectedScreen = 2;
 
 List<Map<String, dynamic>> screenCount = [
@@ -65,7 +65,7 @@ late GetStorage storage;
 late API api;
 
 late var profileData;
-late var productList;
-late List<dynamic> cartList;
+late List<dynamic> productList = [];
+late List<dynamic> cartList = [];
 late List<dynamic> orderList;
 late dynamic selectedProduct;

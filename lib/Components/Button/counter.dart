@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 
 class counter extends StatelessWidget {
   final int count;
-  final Function add;
-  final Function remove;
+  final void Function(bool) add;
+  final void Function(bool) remove;
   final Color color;
 
   const counter(
@@ -29,12 +29,12 @@ class counter extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-              onPressed: () {},
+              onPressed: () => add(true),
               icon: const CircleAvatar(
                   child: Icon(Icons.add, color: Colors.white, size: 10))),
-          Text("1", style: Theme.of(context).textTheme.bodyMedium),
+          Text(count.toString(), style: Theme.of(context).textTheme.bodySmall),
           IconButton(
-              onPressed: () {},
+              onPressed: () => remove(false),
               icon: CircleAvatar(
                   backgroundColor: CustomTheme().highlight,
                   child: Icon(Icons.remove, color: Colors.white, size: 10))),

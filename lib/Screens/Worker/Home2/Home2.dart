@@ -1,12 +1,8 @@
 import 'package:apna_mart/Components/BottomNavBar.dart';
-import 'package:apna_mart/Components/Button/Secondarybtn.dart';
-import 'package:apna_mart/Components/Card/card.dart';
-import 'package:apna_mart/Components/Card/card2.dart';
 import 'package:apna_mart/Components/Searchbar.dart/SearchBar.dart';
 import 'package:apna_mart/Components/TopAppBar.dart';
 import 'package:apna_mart/Screens/Home/tabContoller.dart';
 import 'package:apna_mart/Utils/Constants.dart';
-import 'package:apna_mart/Utils/CustomTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,6 +24,17 @@ class _Home2ScreenState extends State<Home2Screen>
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
     getProduct();
+    screenCount[2]["route"] = "/home2";
+    screenCount[0] = {
+      "name": "Cart",
+      "icon": Icons.screen_search_desktop,
+      "route": "/order"
+    };
+    screenCount[3] = {
+      "name": "Cart",
+      "icon": Icons.shopping_cart,
+      "route": "/products2"
+    };
   }
 
   getProduct() async {
@@ -51,6 +58,7 @@ class _Home2ScreenState extends State<Home2Screen>
 
   @override
   Widget build(BuildContext context) {
+    print(profileData);
     return Scaffold(
         appBar: CustomAppBar2(),
         body: SingleChildScrollView(
@@ -64,18 +72,9 @@ class _Home2ScreenState extends State<Home2Screen>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Total: ",
+                      Text("No of Products: ",
                           style: Theme.of(context).textTheme.headlineLarge),
-                      Text("Rs. 1000",
-                          style: Theme.of(context).textTheme.headlineMedium),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Total: ",
-                          style: Theme.of(context).textTheme.headlineLarge),
-                      Text("Rs. 1000",
+                      Text("${cartList.length}",
                           style: Theme.of(context).textTheme.headlineMedium),
                     ],
                   ),

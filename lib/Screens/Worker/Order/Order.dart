@@ -1,4 +1,5 @@
 import 'package:apna_mart/Components/BottomNavBar.dart';
+import 'package:apna_mart/Components/Button/PrimaryBtn.dart';
 import 'package:apna_mart/Components/Button/Secondarybtn.dart';
 import 'package:apna_mart/Components/Card/card.dart';
 import 'package:apna_mart/Components/Card/card2.dart';
@@ -20,6 +21,7 @@ class _OrderScreenState extends State<OrderScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   bool isLoading = true;
+  List<dynamic> orderOnStore = [];
 
   @override
   void initState() {
@@ -30,11 +32,12 @@ class _OrderScreenState extends State<OrderScreen>
   }
 
   getProduct() async {
-    var response = await api.get(api.getProduct);
+    var response = await api.get(api.order);
+
     if (response != null) {
-      if (response["marts"].length != 0) {
+      if (response["orders"].length != 0) {
         setState(() {
-          productList = response["marts"];
+          orderOnStore = response["orders"];
           isLoading = false;
         });
       }
@@ -68,32 +71,93 @@ class _OrderScreenState extends State<OrderScreen>
                   SizedBox(
                     height: Get.height * .01,
                   ),
-                  SizedBox(
-                    height: Get.height * .075,
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: productTab.length,
-                        itemBuilder: (context, index) => Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: Get.width * .04),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: Get.height * .01,
-                                  horizontal: Get.width * .01),
-                              child: Text(productTab[index],
-                                  style: index == selectedProductTab
-                                      ? Theme.of(context).textTheme.bodyMedium
-                                      : Theme.of(context)
-                                          .textTheme
-                                          .titleMedium),
-                            )),
-                  ),
                   isLoading
-                      ? CircularProgressIndicator()
-                      : tabController(products: productList),
+                      ? Center(child: CircularProgressIndicator())
+                      : ListView.builder(
+                          itemCount: orderOnStore.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) => Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: CustomTheme().backgroundColor2,
+                            ),
+                            margin: EdgeInsets.symmetric(
+                                vertical: Get.height * .01),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: Get.width * .02,
+                                vertical: Get.height * .01),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: getDeatils_Style(
+                                      "Order Id", orderOnStore[index]["id"]),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: getDeatils_Style("Customer Id",
+                                      orderOnStore[index]["uid"]),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: getDeatils_Style("Delivery",
+                                      orderOnStore[index]["isOrderDelivery"]),
+                                ),
+                                Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: getDeatils_Style("Amount", "")),
+                                SizedBox(
+                                  height: Get.height * .02,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    SizedBox(
+                                      width: Get.width * .25,
+                                      child: PrimaryBtn(
+                                        title: "Details",
+                                        ontapFunc: () {},
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: Get.width * .02,
+                                    ),
+                                    SizedBox(
+                                        width: Get.width * .25,
+                                        child: PrimaryBtn(
+                                          color: Color(0XFF48BB78),
+                                          title: "Ready",
+                                          ontapFunc: () {},
+                                        )),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
                 ],
               )),
         ),
         bottomNavigationBar: const CustombottomNavBar());
+  }
+
+  getDeatils_Style(heading, value) {
+    return Row(children: [
+      Text("$heading",
+          style: TextStyle(
+              color: CustomTheme().darkColor,
+              fontSize: 14,
+              fontWeight: FontWeight.bold)),
+      SizedBox(
+        width: Get.width * .02,
+      ),
+      Text("$value",
+          style: TextStyle(
+              color: CustomTheme().darkColor,
+              fontSize: 14,
+              fontWeight: FontWeight.w100)),
+    ]);
   }
 }

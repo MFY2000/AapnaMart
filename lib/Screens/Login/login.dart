@@ -129,7 +129,7 @@ class LoginScreenState extends State<LoginScreen> {
           storage.write("worker", true);
           screen = "/home2";
         }
-        profileData = respones["user"];
+        profileData = respones["user"][0];
         Get.offAndToNamed(screen);
       } else {
         Get.snackbar("Error", respones["message"]);
@@ -152,7 +152,9 @@ class LoginScreenState extends State<LoginScreen> {
     }
 
     var respones = await api.post(path, body);
-    if (respones != null) {
+    if (respones != null &&
+        respones["code"] == null &&
+        respones["code"] != 400) {
       if (respones["user"]["id"] != null) {
         storage.write("user", respones["user"]["id"]);
         if (!isWorker) {
@@ -162,8 +164,10 @@ class LoginScreenState extends State<LoginScreen> {
           storage.write("worker", true);
           Get.offAndToNamed("/home2");
         }
+
+        profileData = respones["user"][0];
       } else {
-        Get.snackbar("Error", respones["message"]);
+        Get.snackbar("Error", respones["message"] ?? "Something went wrong");
       }
     }
   }

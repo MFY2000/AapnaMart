@@ -117,6 +117,18 @@ class CustomTheme {
           fontSize: headingsize,
           letterSpacing: 0.5,
           fontWeight: FontWeight.bold),
+      bodyMedium: TextStyle(
+          color: primayColor,
+          fontFamily: "Urbanist",
+          fontSize: 14,
+          letterSpacing: 0.5,
+          fontWeight: FontWeight.bold),
+      bodySmall: TextStyle(
+          color: lightColor,
+          fontFamily: "Urbanist",
+          fontSize: 14,
+          letterSpacing: 0.5,
+          fontWeight: FontWeight.bold),
     );
   }
 }

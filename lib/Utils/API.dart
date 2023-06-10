@@ -11,9 +11,11 @@ class API {
   late String registerWorker;
   late String getMart;
   late String getProduct;
+  late String order;
 
   API() {
-    BASE_URL = "http://192.168.100.5:3000";
+    // BASE_URL = "https://apna-mart-server.herokuapp.com";
+    BASE_URL = "http://192.168.99.182:3000";
     File_URL = "$BASE_URL/uploads/images/";
     login = "$BASE_URL/auth/login";
     register = "$BASE_URL/user/";
@@ -21,9 +23,11 @@ class API {
     registerWorker = "$BASE_URL/auth/loginWorker";
     getProduct = "$BASE_URL/product/";
     getMart = "$BASE_URL/mart/";
+    order = "$BASE_URL/order/";
   }
 
   Future<dynamic> post(path, body) async {
+    //print(path);
     var response = await http.post(Uri.parse(path), body: body);
     if (response.statusCode == 200) {
       return jsonDecode(response.body);

@@ -30,15 +30,20 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   getProduct() async {
-    print(profileData);
-    var response = await api.get(api.getProduct);
-    if (response != null) {
-      if (response["marts"].length != 0) {
-        setState(() {
-          productList = response["marts"];
-          isLoading = false;
-        });
+    if (productList.isEmpty) {
+      var response = await api.get(api.getProduct);
+      if (response != null) {
+        if (response["marts"].length != 0) {
+          setState(() {
+            productList = response["marts"];
+            isLoading = false;
+          });
+        }
       }
+    } else {
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -84,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen>
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                profileData[0]["name"],
+                                profileData["name"] ?? "Loading...",
                                 style: const TextStyle(
                                     fontSize: 18, color: Colors.white),
                               ),
@@ -112,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen>
                   SizedBox(
                       height: Get.height * .09,
                       child: isLoading
-                          ? Center(child: CircularProgressIndicator())
+                          ? const Center(child: CircularProgressIndicator())
                           : ListView.builder(
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
@@ -124,9 +129,14 @@ class _HomeScreenState extends State<HomeScreen>
                   SizedBox(
                     height: Get.height * .01,
                   ),
-                  Text(
-                    "Top Feature",
-                    style: Theme.of(context).textTheme.bodyLarge,
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: Get.height * .01,
+                        vertical: Get.height * .01),
+                    child: Text(
+                      "Top Feature",
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
                   ),
                   SizedBox(
                     height: Get.height * .01,
@@ -137,22 +147,31 @@ class _HomeScreenState extends State<HomeScreen>
                       mainAxisSpacing: 8.0,
                       childAspectRatio: .8,
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       children: List.generate(featureGrid.length, (index) {
                         var element = featureGrid[index];
-                        return Column(children: [
-                          Image(
-                              image: AssetImage(
-                                  "assets/images/" + element["image"])),
-                          Text(element["name"])
-                        ]);
+                        return GestureDetector(
+                          onTap: upcoming,
+                          child: Column(children: [
+                            Image.asset("assets/images/${element["image"]}"),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: Get.height * .01),
+                              child: Text(element["name"],
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium),
+                            )
+                          ]),
+                        );
                       })),
-                  SizedBox(
-                    height: Get.height * .01,
-                  ),
-                  Text(
-                    "Top Search Product",
-                    style: Theme.of(context).textTheme.bodyLarge,
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: Get.height * .01,
+                        vertical: Get.height * .01),
+                    child: Text(
+                      "Top Search Product",
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
                   ),
                   SizedBox(
                     height: Get.height * .01,
@@ -163,26 +182,39 @@ class _HomeScreenState extends State<HomeScreen>
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         itemCount: productTab.length,
-                        itemBuilder: (context, index) => Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: Get.width * .04),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: Get.height * .01,
-                                  horizontal: Get.width * .01),
-                              child: Text(productTab[index],
-                                  style: index == selectedProductTab
-                                      ? Theme.of(context).textTheme.bodyMedium
-                                      : Theme.of(context)
-                                          .textTheme
-                                          .titleMedium),
+                        itemBuilder: (context, index) => GestureDetector(
+                              onTap: () => listSearch(index),
+                              child: Container(
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: Get.width * .04),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: Get.height * .01,
+                                    horizontal: Get.width * .01),
+                                child: Text(productTab[index],
+                                    style: index == selectedProductTab
+                                        ? Theme.of(context).textTheme.bodyMedium
+                                        : Theme.of(context)
+                                            .textTheme
+                                            .titleMedium),
+                              ),
                             )),
                   ),
                   isLoading
-                      ? CircularProgressIndicator()
+                      ? const Center(child: CircularProgressIndicator())
                       : tabController(products: productList),
                 ],
               )),
         ),
         bottomNavigationBar: const CustombottomNavBar());
+  }
+
+  upcoming() {
+    Get.snackbar("Coming Soon", "we are working on it");
+  }
+
+  listSearch(index) {
+    setState(() {
+      selectedProductTab = index;
+    });
   }
 }

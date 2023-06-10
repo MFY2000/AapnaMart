@@ -9,7 +9,7 @@ class productCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(data);
+    //print(data);
     return GestureDetector(
       onTap: () {
         selectedProduct = data;
@@ -42,9 +42,26 @@ class productCard extends StatelessWidget {
                       data["name"],
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
-                    Text(
-                      data["subTitle"],
-                      style: Theme.of(context).textTheme.titleMedium,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              data["subTitle"],
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 10,
+                            ),
+                          ],
+                        ),
+                        Text(
+                          "Rs. ${data["price"]}",
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ],
                     ),
                   ],
                 ),
