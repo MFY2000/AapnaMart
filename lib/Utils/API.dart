@@ -14,8 +14,8 @@ class API {
   late String order;
 
   API() {
-    // BASE_URL = "https://apna-mart-server.herokuapp.com";
-    BASE_URL = "http://192.168.99.182:3000";
+    BASE_URL = "https://apna-mart-server.herokuapp.com";
+    // BASE_URL = "http://192.168.99.182:3000";
     File_URL = "$BASE_URL/uploads/images/";
     login = "$BASE_URL/auth/login";
     register = "$BASE_URL/user/";
