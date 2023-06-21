@@ -7,6 +7,7 @@ import 'package:apna_mart/Components/TextFeild/PrimaryTextFeild.dart';
 import 'package:apna_mart/Utils/Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:show_up_animation/show_up_animation.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -71,7 +72,14 @@ class LoginScreenState extends State<LoginScreen> {
                               controller: _email,
                               label: 'Email',
                             ),
-                            renderDifferentWidget(),
+                            ShowUpAnimation(
+                              animationDuration:
+                                  const Duration(milliseconds: 700),
+                              curve: Curves.decelerate,
+                              direction: Direction.horizontal,
+                              offset: 0.6,
+                              child: renderDifferentWidget(),
+                            ),
                           ]),
                     ),
                   ),
@@ -86,17 +94,23 @@ class LoginScreenState extends State<LoginScreen> {
         ));
   }
 
-  ontap() {
+  ontap() async {
     setState(() {
       isLoader = true;
     });
 
-    if (typeOfUser == 0) {
-      onContinue();
-    } else if (typeOfUser == 1) {
-      login();
-    } else {
-      register();
+    if (_formKey.currentState!.validate()) {
+      switch (typeOfUser) {
+        case 0:
+          await onContinue();
+          break;
+        case 1:
+          await login();
+          break;
+        default:
+          await register();
+          break;
+      }
     }
 
     setState(() {
@@ -110,30 +124,37 @@ class LoginScreenState extends State<LoginScreen> {
       setState(() {
         typeOfUser = respones["isUser"] ? 1 : 2;
       });
+    } else {
+      Get.snackbar("Error", respones["message"] ?? "Something went wrong");
     }
   }
 
   login() async {
     var respones = await api
         .post(api.login, {"email": _email.text, "password": _password.text});
-    if (respones != null) {
-      if (respones["user"]["id"] != null) {
+
+    if (respones != null &&
+        respones["user"] != null &&
+        respones["user"] != {} &&
+        respones["code"] == null) {
+      var user = respones["user"][0];
+      if (user["id"] != null) {
         var screen = "/home2";
-        storage.write("user", respones["user"]["id"]);
-        var user = respones["user"]["type"];
+
+        storage.write("user", user["id"]);
+
         if (user == "customer" || user == "Customer") {
-          var isProfile = respones["user"]["cnic"] != null;
+          var isProfile = user["cnic"] != null;
           screen = isProfile ? "/home" : "/profile";
           storage.write("Profile", isProfile);
         } else {
           storage.write("worker", true);
-          screen = "/home2";
         }
-        profileData = respones["user"][0];
-        Get.offAndToNamed(screen);
-      } else {
-        Get.snackbar("Error", respones["message"]);
+        profileData = user;
+        // Get.offAndToNamed(screen);
       }
+    } else {
+      Get.snackbar("Error", respones["message"] ?? "Something went Wrong");
     }
   }
 
@@ -211,7 +232,7 @@ class LoginScreenState extends State<LoginScreen> {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Text(
-            "Just Write your Email, phone Number",
+            "Just Write your Email",
             style: Theme.of(context).textTheme.displaySmall,
           ),
         );

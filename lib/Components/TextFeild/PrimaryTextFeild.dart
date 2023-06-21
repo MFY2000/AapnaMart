@@ -28,10 +28,12 @@ class PrimaryTextFeild extends StatelessWidget {
         keyboardType: inputType,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) {
-          if (typeOfFeild == 2 && value != null && !GetUtils.isEmail(value)) {
-            return 'Please Enter Valid $label';
-          } else if (value == null || value.isEmpty) {
+          if (value == null || value.isEmpty) {
             return 'Please Enter $label';
+          } else if (typeOfFeild == 2 &&
+              value != null &&
+              !GetUtils.isEmail(value)) {
+            return 'Please Enter Valid $label';
           }
           return null;
         },
