@@ -24,6 +24,7 @@ class _Home2ScreenState extends State<Home2Screen>
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
     getProduct();
+    selectedScreen = 2;
     screenCount[2]["route"] = "/home2";
     screenCount[0] = {
       "name": "Cart",
@@ -113,7 +114,7 @@ class _Home2ScreenState extends State<Home2Screen>
                             )),
                   ),
                   isLoading
-                      ? CircularProgressIndicator()
+                      ? Center(child: CircularProgressIndicator())
                       : tabController(products: productList),
                 ],
               )),

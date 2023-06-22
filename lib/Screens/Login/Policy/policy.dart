@@ -7,8 +7,6 @@ import 'package:get/get.dart';
 
 class PolicyScreen extends StatelessWidget {
   late List<String> policy = [
-    "Age should be 18+ years ",
-    "Selfie Verification is mandatory ",
     "Only respectable and ethical images are permissible",
     "Foul language is prohibited  ",
     "Use/misuse this app for any illegal purposes is prohibited ",

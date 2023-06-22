@@ -132,18 +132,15 @@ class LoginScreenState extends State<LoginScreen> {
   login() async {
     var respones = await api
         .post(api.login, {"email": _email.text, "password": _password.text});
-
     if (respones != null &&
         respones["user"] != null &&
         respones["user"] != {} &&
         respones["code"] == null) {
-      var user = respones["user"][0];
+      var user = respones["user"];
       if (user["id"] != null) {
         var screen = "/home2";
-
         storage.write("user", user["id"]);
-
-        if (user == "customer" || user == "Customer") {
+        if (user["type"] == "customer" || user["type"] == "Customer") {
           var isProfile = user["cnic"] != null;
           screen = isProfile ? "/home" : "/profile";
           storage.write("Profile", isProfile);
@@ -151,7 +148,7 @@ class LoginScreenState extends State<LoginScreen> {
           storage.write("worker", true);
         }
         profileData = user;
-        // Get.offAndToNamed(screen);
+        Get.offAndToNamed(screen);
       }
     } else {
       Get.snackbar("Error", respones["message"] ?? "Something went Wrong");
@@ -173,6 +170,7 @@ class LoginScreenState extends State<LoginScreen> {
     }
 
     var respones = await api.post(path, body);
+    var screen = "/home2";
     if (respones != null &&
         respones["code"] == null &&
         respones["code"] != 400) {
@@ -180,13 +178,13 @@ class LoginScreenState extends State<LoginScreen> {
         storage.write("user", respones["user"]["id"]);
         if (!isWorker) {
           storage.write("Profile", false);
-          Get.offAndToNamed("/successfull");
+          screen = "/successfull";
         } else {
           storage.write("worker", true);
-          Get.offAndToNamed("/home2");
         }
 
-        profileData = respones["user"][0];
+        profileData = respones["user"];
+        Get.offAndToNamed(screen);
       } else {
         Get.snackbar("Error", respones["message"] ?? "Something went wrong");
       }

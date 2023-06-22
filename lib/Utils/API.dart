@@ -15,7 +15,7 @@ class API {
 
   API() {
     // BASE_URL = "https://apna-mart-server.herokuapp.com";
-    BASE_URL = "http://192.168.100.5:3000";
+    BASE_URL = "http://192.168.100.4:3000";
     File_URL = "$BASE_URL/uploads/images/";
     login = "$BASE_URL/auth/login";
     register = "$BASE_URL/user/";
