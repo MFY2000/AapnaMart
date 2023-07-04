@@ -1,0 +1,11 @@
+length = int(input())              # Reading input from STDIN
+
+listSinger = sorted(list(map(int, input().split())))
+
+maxcount = 0
+
+for i in range(len(listSinger)-1):
+    if(listSinger[i] == listSinger[i+1]):
+        maxcount = maxcount + 1
+
+print('%s' % maxcount if maxcount != 0 else length)      # Writing output to STDOUT

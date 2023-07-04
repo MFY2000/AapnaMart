@@ -20,6 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     inilization();
     goTO();
+
   }
 
   inilization() async {
@@ -28,7 +29,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void goTO() async {
-    //print("splash");
     var screen = "";
     bool internet = await checkInternetConnectivity();
 
@@ -55,6 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
           colorText: Colors.white);
       screen = "/internet";
     }
+    print("splash");
 
     Get.offAndToNamed(screen);
   }
