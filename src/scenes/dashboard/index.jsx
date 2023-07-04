@@ -15,7 +15,14 @@ import ProgressCircle from "../../components/ProgressCircle";
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
+  const data = {
+    "basic": [
+      {"name": "Today Order","value": 99, "icon": 0, max: 100, increase: "+21%"},
+      {"name": "Amount", "value": 8900, "icon": 1, max: 100000, increase: "+41%"},
+      {"name": "New Customer", "value": 59, "icon": 2, max: 99, increase: "+2%"},
+      {"name": "Worker Order", "value": 19, "icon": 3, max: 100, increase: "+1%"},
+    ] 
+  }
   return (
     <Box m="20px">
       {/* HEADER */}
@@ -46,7 +53,9 @@ const Dashboard = () => {
         gap="20px"
       >
         {/* ROW 1 */}
-        <Box
+       { data.basic.map(function(item, i){
+          console.log(item); 
+          return <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
           display="flex"
@@ -54,74 +63,26 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="12,361"
-            subtitle="Emails Sent"
-            progress="0.75"
-            increase="+14%"
-            icon={
-              <EmailIcon
-                sx={{ color: colors.blueAccent[600], fontSize: "26px" }}
-              />
-            }
+            title= {item.value}
+            subtitle= {item.name}
+            progress={item.value/item.max}
+            increase={item.increase}
+            icon={(() => {
+              switch(item.icon){
+                case 0:
+                  return <EmailIcon sx={{ color: colors.blueAccent[600], fontSize: "26px" }}/>
+                case 1:
+                    return <PointOfSaleIcon sx={{ color: colors.blueAccent[600], fontSize: "26px" }}/>
+                case 2:
+                  return <PersonAddIcon sx={{ color: colors.blueAccent[600], fontSize: "26px" }}/>
+                case 3:
+                  return <Star sx={{ color: colors.blueAccent[600], fontSize: "26px" }}/>
+              }
+            })()}
           />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="431,225"
-            subtitle="Sales Obtained"
-            progress="0.50"
-            increase="+21%"
-            icon={
-              <PointOfSaleIcon
-                sx={{ color: colors.blueAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="32,441"
-            subtitle="New Clients"
-            progress="0.30"
-            increase="+5%"
-            icon={
-              <PersonAddIcon
-                sx={{ color: colors.blueAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="1,325,134"
-            subtitle="Most Selling Product"
-            progress="0.80"
-            increase="+43%"
-            icon={
-              <Star
-                sx={{ color: colors.blueAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
+        </Box>;
+        })}
+
 
         {/* ROW 2 */}
         <Box
