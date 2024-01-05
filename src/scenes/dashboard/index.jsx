@@ -11,19 +11,26 @@ import LineChart from "../../components/LineChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
+import APIConnector from "../../data/api";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const data = {
-    "basic": [
-      {"name": "Today Order","value": 99, "icon": 0, max: 100, increase: "+21%"},
-      {"name": "Amount", "value": 8900, "icon": 1, max: 100000, increase: "+41%"},
-      {"name": "New Customer", "value": 59, "icon": 2, max: 99, increase: "+2%"},
-      {"name": "Worker Order", "value": 19, "icon": 3, max: 100, increase: "+1%"},
-    ] 
-  }
+  const [data2, setdata] = useState([]);
+  const [isData, set] = useState(false);
+  
+  useEffect(() => {
+    (new APIConnector()).getAllData().then((data) => {
+      console.log(data);
+      setdata(data);
+      set(true);
+    })
+  }, []);
+
   return (
+    isData ? 
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -53,8 +60,7 @@ const Dashboard = () => {
         gap="20px"
       >
         {/* ROW 1 */}
-       { data.basic.map(function(item, i){
-          console.log(item); 
+       { isData ? data2.basic.map(function(item, i){
           return <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
@@ -81,7 +87,7 @@ const Dashboard = () => {
             })()}
           />
         </Box>;
-        })}
+        }): console.log("dd")}
 
 
         {/* ROW 2 */}
@@ -110,19 +116,17 @@ const Dashboard = () => {
                 fontWeight="bold"
                 color={colors.blueAccent[500]}
               >
-                $59,342.32
+              Rs. {data2.Sale.Total}
               </Typography>
             </Box>
             <Box>
               <IconButton>
-                <DownloadOutlinedIcon
-                  sx={{ fontSize: "26px", color: colors.blueAccent[500] }}
-                />
+                <DownloadOutlinedIcon sx={{ fontSize: "26px", color: colors.blueAccent[500] }}/>
               </IconButton>
             </Box>
           </Box>
           <Box height="250px" m="-20px 0 0 0">
-            <LineChart isDashboard={true} />
+            <LineChart isDashboard={true} response={data2.Sale.data}/>
           </Box>
         </Box>
         <Box
@@ -221,7 +225,7 @@ const Dashboard = () => {
         </Box>
 
       </Box>
-    </Box>
+    </Box>: <Box></Box>
   );
 };
 
